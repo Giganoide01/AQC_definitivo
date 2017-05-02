@@ -20,7 +20,7 @@ class MainFrame ( wx.Frame ):
 		#self.m_dirPicker4 = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.DefaultSize, wx.DIRP_DEFAULT_STYLE )
 		#bSizer1.Add( self.m_dirPicker4, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.text = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.text = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.DefaultSize, wx.DIRP_DEFAULT_STYLE )
 		bSizer1.Add( self.text, 0, wx.ALL|wx.EXPAND, 5 )
 		
 
@@ -28,15 +28,17 @@ class MainFrame ( wx.Frame ):
 		self.m_staticText2.Wrap( -1 )
 		bSizer1.Add( self.m_staticText2, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-		self.text1 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.text1 = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.DefaultSize, wx.DIRP_DEFAULT_STYLE )
 		bSizer1.Add( self.text1, 0, wx.ALL|wx.EXPAND, 5 )
-		
+
+		#self.m_filePicker1 = wx.FilePickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a file", u"*.*", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE )
+		#bSizer1.Add( self.m_filePicker1, 0, wx.ALL|wx.EXPAND, 5 )
                 
 		self.m_staticText3 = wx.StaticText( self, wx.ID_ANY, u"Diretório de Arquivo (avaliação subjetiva)", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText3.Wrap( -1 )
 		bSizer1.Add( self.m_staticText3, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
-		self.text2 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.text2 = wx.FilePickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a file", u"*.*", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE )
 		bSizer1.Add( self.text2, 0, wx.ALL|wx.EXPAND, 5 )
 		
                 
@@ -132,9 +134,9 @@ class MainFrame ( wx.Frame ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def solveFunc( self, event ):
-		orig = self.text.GetValue()
-		teste = self.text1.GetValue()
-		arquivo = self.text2.GetValue()
+		orig = self.text.GetTextCtrlValue()
+		teste = self.text1.GetTextCtrlValue()
+		arquivo = self.text2.GetTextCtrlValue()
 		psnr = self.m_checkBox8.GetValue()
 		mse = self.m_checkBox10.GetValue()
 		mssim = self.m_checkBox9.GetValue()
