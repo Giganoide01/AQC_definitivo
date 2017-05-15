@@ -7,6 +7,7 @@ import outlier
 import regressaoLinear
 import levenbergMarquart
 import anova
+import eliminador_outlier
 
 def avaliacao(metrica, arq):
     # abrir arquivo de avaliacoes objetivas (metricas)
@@ -33,6 +34,8 @@ def avaliacao(metrica, arq):
     #inicializacao das variaveis
     x = np.array([])
     y = np.array([])
+    x0 = np.array([])
+    y0 = np.array([])
     l = np.array([])
     total_pontos = 0
     ref = ''
@@ -60,33 +63,39 @@ def avaliacao(metrica, arq):
         #print ww1
         total_pontos = len(ww) + total_pontos
         b = c[i].split(';')                         
-        psnr = b[metrica]                           
-        h = np.asarray(ww[0:12])          #substituir numeracao por eliminacao de valores nulos          
-        h1 = np.asarray(ww1[0:12])
+        psnr = b[metrica]
+        #substituir numeracao por eliminacao de valores nulos
+        h = np.asarray([e for e in ww if (e != str(''))])
+        h1 = np.asarray([e for e in ww1 if (e != str(''))])
+        
         #t = h.astype(np.float)
         v2 = np.mean(h1.astype(np.float))
         v1 = np.mean(h.astype(np.float))
         v=v2-v1
         if (psnr !=str('inf')):
-            x = np.insert(x,0,psnr)         
-            y = np.insert(y,0,v1)           
+            x0 = np.insert(x0,0,psnr)         
+            y0 = np.insert(y0,0,v)           
         r = float(psnr)                     
-        #p = (len(w))-1.0                   
-                                 
+        #p = (len(w))-1.0
+        
         #outlier
-        out = outlier.outlier(h.astype(np.float))                   
-        l = np.append(l, out)                       
+        out = outlier.outlier(eliminador_outlier.reject_outliers(y0))                   
+        l = np.append(l, out)
+
+    u = np.median(y0)
+    s = np.std(y0) 
+    for j in xrange(0, len(y0)):
+        if (u - 2 * s < y0[j] < u + 2 * s):
+            y = np.insert(y,0,y0[j])
+            x = np.insert(x,0,x0[j])
 
     razao_outliers = np.sum(l)/total_pontos
     coeficiente_spearman = spearman.spearman(x,y)   #spearman/s = stats.spearmanr(x,y)
     coeficiente_pearson = pearson.pearson(x,y)      #pearson/p = stats.pearsonr(x,y)
     coeficiente_anova_F, coeficiente_anova_p, relacao_anova = anova.anova(x,y)
-
-    
-    
     
     a, b = regressaoLinear.regressaoLinear(x,y)     #regressao linear
-    x, t, y, v = levenbergMarquart.levenberg(x,y)   #funcao logistica
+    x, t, y, v = levenbergMarquart.levenberg(x,y,metrica)   #funcao logistica
     linear = '(' + str(a) + ')*x + (' + str(b) + ')'
     logistica = '(' + str(v[0])+ ') * (' + str(0.5) + '-(' + str(v[1]) + ')/(exp(' + str(v[1]) + '*(x-(' + str(v[2])+ '))))) + (' + str(v[3])+ ') * x+(' + str(v[4]) + ')'
 

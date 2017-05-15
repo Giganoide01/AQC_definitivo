@@ -2,7 +2,7 @@ from numpy import arange, sin, pi, random, array
 import numpy as np
 import matplotlib.pyplot as plt
 
-def levenberg(x, y):
+def levenberg(x, y, metrica):
     
 
     def residuals(p, y, x):
@@ -13,7 +13,22 @@ def levenberg(x, y):
     def peval(x, p):
         return p[0]*(0.5 - 1/(1+np.exp(p[1]*(x -p[2])))) + p[3]*x +p[4]
     
-    p0 = [8, 1 / 2.3e-2, pi / 3, 9, 5]
+    if (metrica == 1):
+        p0 = [-6, 1.3, 3, 0.4, 3]
+    if (metrica == 2):
+        p0 = [-9, 0.67, -1, 0.57, 3]
+    if (metrica == 3):
+        p0 = [-5, 1.3, 1, 0.28, 13]
+    if (metrica == 4):
+        p0 = [-6, 2.6, 1, 0.4, 3]
+    if (metrica == 5):
+        p0 = [-21, 0.5, 10, -0.25, 19]
+    if (metrica == 6):
+        p0 = [-6, 2.6, 1, 0.4, 3]
+    if (metrica == 7):
+        p0 = [-21, 0.5, 10, -0.25, 19]
+    if (metrica == 8):
+        p0 = [-6, 2.6, 1, 0.4, 3]
 
 
     from scipy.optimize import leastsq

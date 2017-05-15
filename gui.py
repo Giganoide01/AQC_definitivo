@@ -7,7 +7,7 @@ import main_aqv
 class MainFrame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 400,600 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Aplicativo de Avaliação de Qualidade Visual", pos = wx.DefaultPosition, size = wx.Size( 500, 720), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -16,9 +16,6 @@ class MainFrame ( wx.Frame ):
 		self.m_staticText1 = wx.StaticText( self, wx.ID_ANY, u"Diretório de Imagens Originais", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText1.Wrap( -1 )
 		bSizer1.Add( self.m_staticText1, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-		#self.m_dirPicker4 = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.DefaultSize, wx.DIRP_DEFAULT_STYLE )
-		#bSizer1.Add( self.m_dirPicker4, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		self.text = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.DefaultSize, wx.DIRP_DEFAULT_STYLE )
 		bSizer1.Add( self.text, 0, wx.ALL|wx.EXPAND, 5 )
@@ -31,8 +28,6 @@ class MainFrame ( wx.Frame ):
 		self.text1 = wx.DirPickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a folder", wx.DefaultPosition, wx.DefaultSize, wx.DIRP_DEFAULT_STYLE )
 		bSizer1.Add( self.text1, 0, wx.ALL|wx.EXPAND, 5 )
 
-		#self.m_filePicker1 = wx.FilePickerCtrl( self, wx.ID_ANY, wx.EmptyString, u"Select a file", u"*.*", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE )
-		#bSizer1.Add( self.m_filePicker1, 0, wx.ALL|wx.EXPAND, 5 )
                 
 		self.m_staticText3 = wx.StaticText( self, wx.ID_ANY, u"Diretório de Arquivo (avaliação subjetiva)", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText3.Wrap( -1 )
